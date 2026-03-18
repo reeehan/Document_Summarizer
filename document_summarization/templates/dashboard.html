@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<style>
+    body {
+        overflow-x: hidden;
+    }
+
+    .sidebar {
+        min-height: 100vh;
+        background: #2C3E50;
+        color: white;
+    }
+
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+
+    .sidebar a:hover {
+        background: #495057;
+    }
+
+    .content-section {
+        display: none;
+    }
+
+    .content-section.active {
+        display: block;
+    }
+</style>
+
+<div class="container-fluid" style="margin-top:100px ;">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse" id="sidebarMenu">
+            <div class="pt-3">
+                <h4 class="px-3">Sidebar</h4>
+                <a onclick="showSection('dashboard')">Dashboard</a>
+                <a onclick="showSection('profile')">Upload File</a>
+                <a onclick="showSection('settings')">News</a>
+                <a onclick="showSection('logout')">Logout</a>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-0">
+            <button class="btn btn-dark d-md-none mt-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sidebarMenu">
+                ☰ Menu
+            </button>
+
+            <!-- Content Sections -->
+            <div id="dashboard" class="content-section active"
+                style="height: 100vh; color: rgb(0, 0, 0); margin: 0; padding: 0;">
+                <div style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
+                    <h1 class="display-1 fw-bold text-uppercase text-center" style="letter-spacing: 2px; margin: 0;">
+                        Document Summarization
+                    </h1>
+                </div>
+            </div>
+            <div id="profile" class="content-section">
+                <h1 class="text-center mt-5">Upload Files</h1>
+                <div class="container" style="margin-top: 10%; max-width: 500px;">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <input class="form-control" name="lname" id="lname" type="file" required />
+                            <label for="lname">Upload File</label>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Upload</button>
+                    </form>
+                </div>
+            </div>
+            <div id="settings" class="content-section text-center">
+                <div class="container mt-5">
+                    <h3 class="text-center mb-4">📰 Related News</h3>
+
+                    <div class="row">
+                        <!-- News Card 1 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm border-0">
+                                <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c"
+                                    class="card-img-top" alt="News Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">AI transforming document summarization</h5>
+                                    <p class="card-text text-muted">
+                                        Artificial Intelligence is making it easier to summarize complex documents into
+                                        concise and meaningful summaries for quick understanding.
+                                    </p>
+                                    <a href="#" class="btn btn-primary btn-sm">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- News Card 2 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm border-0">
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+                                    class="card-img-top" alt="News Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">Multilingual tech helps Indian users</h5>
+                                    <p class="card-text text-muted">
+                                        New tools now allow document summarization and translation in regional languages
+                                        like Hindi and Marathi, improving accessibility.
+                                    </p>
+                                    <a href="#" class="btn btn-primary btn-sm">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- News Card 3 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm border-0">
+                                <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980"
+                                    class="card-img-top" alt="News Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">Future of document AI systems</h5>
+                                    <p class="card-text text-muted">
+                                        AI-based document systems will soon include summarization, translation, and
+                                        real-time insights in one platform.
+                                    </p>
+                                    <a href="#" class="btn btn-primary btn-sm">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="logout" class="content-section">
+                <h1>Logout</h1>
+                <p>You have logged out successfully.</p>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    function showSection(sectionId) {
+        // सर्व sections hide करा
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        // फक्त clicked section show करा
+        document.getElementById(sectionId).classList.add('active');
+    }
+</script>
+
+
+
+
+
+
+{% endblock body %}
